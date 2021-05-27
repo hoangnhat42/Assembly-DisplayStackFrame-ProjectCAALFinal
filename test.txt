@@ -1,0 +1,80 @@
+.LC0:
+        .string "Main-Add = %p\n"
+.LC1:
+        .string "Re-Add = %p\n"
+.LC2:
+        .string "Save RBP = %p\n"
+.LC3:
+        .string "SP = %p\n"
+.LC4:
+        .string "loc = %lld\n"
+.LC5:
+        .string "a = %d\n"
+.LC6:
+        .string "b = %d\n"
+func:
+        push    rbp
+        mov     rbp, rsp
+        sub     rsp, 32
+        mov     DWORD PTR [rbp-20], edi
+        mov     DWORD PTR [rbp-24], esi
+        mov     QWORD PTR [rbp-16], 0
+        lea     rax, [rbp-16]
+        mov     QWORD PTR [rbp-8], rax
+        mov     esi, OFFSET FLAT:main
+        mov     edi, OFFSET FLAT:.LC0
+        mov     eax, 0
+        call    printf
+        mov     rax, QWORD PTR [rbp-8]
+        add     rax, 24
+        mov     rax, QWORD PTR [rax]
+        mov     rsi, rax
+        mov     edi, OFFSET FLAT:.LC1
+        mov     eax, 0
+        call    printf
+        mov     rax, QWORD PTR [rbp-8]
+        add     rax, 16
+        mov     rax, QWORD PTR [rax]
+        mov     rsi, rax
+        mov     edi, OFFSET FLAT:.LC2
+        mov     eax, 0
+        call    printf
+        mov     rax, QWORD PTR [rbp-8]
+        add     rax, 8
+        mov     rax, QWORD PTR [rax]
+        mov     rsi, rax
+        mov     edi, OFFSET FLAT:.LC3
+        mov     eax, 0
+        call    printf
+        mov     rax, QWORD PTR [rbp-8]
+        mov     rax, QWORD PTR [rax]
+        mov     rsi, rax
+        mov     edi, OFFSET FLAT:.LC4
+        mov     eax, 0
+        call    printf
+        mov     rax, QWORD PTR [rbp-8]
+        sub     rax, 4
+        mov     eax, DWORD PTR [rax]
+        mov     esi, eax
+        mov     edi, OFFSET FLAT:.LC5
+        mov     eax, 0
+        call    printf
+        mov     rax, QWORD PTR [rbp-8]
+        sub     rax, 8
+        mov     eax, DWORD PTR [rax]
+        mov     esi, eax
+        mov     edi, OFFSET FLAT:.LC6
+        mov     eax, 0
+        call    printf
+        nop
+        leave
+        ret
+main:
+        push    rbp
+        mov     rbp, rsp
+        mov     esi, 3
+        mov     edi, 5
+        call    func
+        mov     eax, 0
+        pop     rbp
+        ret
