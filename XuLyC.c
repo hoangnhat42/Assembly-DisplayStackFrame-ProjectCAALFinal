@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define _BACKTRACE_SIZE_12
+#define _BACKTRACE_SIZE 12
 
 extern _cdecl walk_stack(unsigned int[], int);
 
