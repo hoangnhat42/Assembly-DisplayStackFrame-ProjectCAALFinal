@@ -25,6 +25,10 @@ section .data
 	global write_hex
 	global write_bin
 	global write_dec
+	global	write_hex_byte
+	global  write_hex_dword
+    global  write_byte_low1
+    global  write_byte_high1
 section .text
 
 
@@ -94,3 +98,42 @@ write_dec:
 	; input ax
 
 	ret
+
+write_hex_byte:
+    push ax
+    mov ah,al
+    and al,0F0h
+    rol al,4
+    cmp al,0Ah
+    jb write_byte_low1
+    add al,7
+    ret
+
+write_byte_low1:
+    add al,'0'
+    call write_char
+    mov al,ah
+    and al,0Fh
+    cmp al,0Ah
+    jb write_byte_high1
+    add al,7
+    ret
+
+write_byte_high1:
+    add al,'0'
+    call write_char
+    pop ax
+    ret
+
+write_hex_dword:
+    push eax
+    rol eax,8
+    call write_hex_byte
+    rol eax,8
+    call write_hex_byte
+    rol eax,8
+    call write_hex_byte
+    rol eax,8
+    call write_hex_byte
+    pop eax
+    ret
