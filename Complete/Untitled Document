@@ -1,0 +1,2 @@
+nasm -g -f elf disp.asm && nasm -g -f elf stackwalk.asm  && gcc ProgramC.c disp.o stackwalk.o -o ProgramC.out -mpreferred-stack-boundary=2
+
